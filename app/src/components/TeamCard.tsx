@@ -1,7 +1,7 @@
 import type { Period, Team } from '../types';
 import { CompositionBar } from './CompositionBar';
 import { PersonTable } from './PersonTable';
-import { Sparkline } from './Sparkline';
+import { TrendChart } from './TrendChart';
 import './TeamCard.css';
 
 type Props = {
@@ -71,14 +71,16 @@ export function TeamCard({ team, period, expanded, onToggle }: Props) {
       {expanded && (
         <>
           <div className="team-sparkline">
-            <div className="label-tiny">Trend</div>
-            <Sparkline
+            <div className="label-tiny">Utilization trend</div>
+            <TrendChart
               data={slice.trend}
-              color={hasUnmapped ? 'var(--amber)' : 'var(--billable)'}
-              height={48}
+              period={period}
+              color={hasUnmapped ? '#fbbf24' : '#4ade80'}
+              height={180}
+              target={team.target}
             />
           </div>
-          <PersonTable people={slice.people} showUnmapped={hasUnmapped} />
+          <PersonTable people={slice.people} showUnmapped={hasUnmapped} period={period} />
         </>
       )}
 

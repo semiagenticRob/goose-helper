@@ -1,4 +1,4 @@
-import type { DashboardData } from '../types';
+import type { DashboardData, PersonBreakdown, PersonRow, Period } from '../types';
 
 const teamAPeople = [
   { name: 'Jamie Chen', util: 0.91 },
@@ -23,27 +23,78 @@ const teamBPeople = [
   { name: 'Omar Reyes', util: 0.63, unmapped: 6 },
 ];
 
-function makeTeamAPeople(scale: number) {
-  return teamAPeople.map(p => ({
-    name: p.name,
-    utilization: clamp(p.util + jitter(p.name, scale)),
-    unmappedHours: 0,
-  }));
-}
-
-function makeTeamBPeople(scale: number, unmappedScale: number) {
-  return teamBPeople.map(p => ({
-    name: p.name,
-    utilization: clamp(p.util + jitter(p.name, scale)),
-    unmappedHours: Math.max(0, Math.round(p.unmapped * unmappedScale)),
-  }));
-}
+const HOURS_AVAILABLE: Record<Period, number> = {
+  week: 40,
+  month: 168,
+  quarter: 504,
+};
 
 function clamp(n: number) { return Math.max(0, Math.min(0.99, n)); }
 function jitter(seed: string, scale: number) {
   let h = 0;
   for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) | 0;
   return ((h % 11) - 5) * 0.01 * scale;
+}
+
+function teamABreakdown(utilization: number, period: Period, teamNonBillable: number): PersonBreakdown {
+  const hoursAvailable = HOURS_AVAILABLE[period];
+  const hoursWorked = Math.round(hoursAvailable * (utilization + teamNonBillable));
+  return {
+    confirmedBillable: utilization,
+    unmappedProbable: 0,
+    nonBillable: teamNonBillable,
+    hoursWorked,
+    hoursAvailable,
+  };
+}
+
+function teamBBreakdown(
+  utilization: number,
+  unmappedHours: number,
+  period: Period,
+  teamNonBillable: number,
+): PersonBreakdown {
+  const hoursAvailable = HOURS_AVAILABLE[period];
+  const unmappedFrac = unmappedHours / hoursAvailable;
+  const confirmedBillable = Math.max(0, utilization - unmappedFrac);
+  const hoursWorked = Math.round(hoursAvailable * (utilization + teamNonBillable));
+  return {
+    confirmedBillable,
+    unmappedProbable: unmappedFrac,
+    nonBillable: teamNonBillable,
+    hoursWorked,
+    hoursAvailable,
+  };
+}
+
+function makeTeamAPeople(scale: number, period: Period, teamNonBillable: number): PersonRow[] {
+  return teamAPeople.map(p => {
+    const utilization = clamp(p.util + jitter(p.name, scale));
+    return {
+      name: p.name,
+      utilization,
+      unmappedHours: 0,
+      breakdown: teamABreakdown(utilization, period, teamNonBillable),
+    };
+  });
+}
+
+function makeTeamBPeople(
+  scale: number,
+  unmappedScale: number,
+  period: Period,
+  teamNonBillable: number,
+): PersonRow[] {
+  return teamBPeople.map(p => {
+    const utilization = clamp(p.util + jitter(p.name, scale));
+    const unmappedHours = Math.max(0, Math.round(p.unmapped * unmappedScale));
+    return {
+      name: p.name,
+      utilization,
+      unmappedHours,
+      breakdown: teamBBreakdown(utilization, unmappedHours, period, teamNonBillable),
+    };
+  });
 }
 
 export const mockDashboard: DashboardData = {
@@ -60,7 +111,7 @@ export const mockDashboard: DashboardData = {
           nonBillable: 0.12,
           mappingConfidence: 1,
           trend: [0.79, 0.81, 0.80, 0.83, 0.82, 0.85, 0.84, 0.84],
-          people: makeTeamAPeople(1.1),
+          people: makeTeamAPeople(1.1, 'week', 0.12),
         },
         month: {
           confirmedBillable: 0.82,
@@ -68,7 +119,7 @@ export const mockDashboard: DashboardData = {
           nonBillable: 0.14,
           mappingConfidence: 1,
           trend: [0.76, 0.78, 0.79, 0.80, 0.81, 0.82, 0.83, 0.82, 0.81, 0.82, 0.82],
-          people: makeTeamAPeople(1.0),
+          people: makeTeamAPeople(1.0, 'month', 0.14),
         },
         quarter: {
           confirmedBillable: 0.80,
@@ -76,7 +127,7 @@ export const mockDashboard: DashboardData = {
           nonBillable: 0.15,
           mappingConfidence: 1,
           trend: [0.74, 0.76, 0.78, 0.79, 0.80, 0.81, 0.80, 0.80],
-          people: makeTeamAPeople(0.8),
+          people: makeTeamAPeople(0.8, 'quarter', 0.15),
         },
       },
     },
@@ -92,7 +143,7 @@ export const mockDashboard: DashboardData = {
           nonBillable: 0.22,
           mappingConfidence: 0.69,
           trend: [0.65, 0.63, 0.68, 0.70, 0.69, 0.71, 0.72, 0.72],
-          people: makeTeamBPeople(1.1, 1.1),
+          people: makeTeamBPeople(1.1, 1.1, 'week', 0.22),
         },
         month: {
           confirmedBillable: 0.55,
@@ -100,7 +151,7 @@ export const mockDashboard: DashboardData = {
           nonBillable: 0.25,
           mappingConfidence: 0.72,
           trend: [0.60, 0.62, 0.64, 0.65, 0.67, 0.68, 0.67, 0.69, 0.68, 0.67, 0.67],
-          people: makeTeamBPeople(1.0, 1.0),
+          people: makeTeamBPeople(1.0, 1.0, 'month', 0.25),
         },
         quarter: {
           confirmedBillable: 0.54,
@@ -108,7 +159,7 @@ export const mockDashboard: DashboardData = {
           nonBillable: 0.24,
           mappingConfidence: 0.70,
           trend: [0.58, 0.60, 0.62, 0.64, 0.65, 0.66, 0.67, 0.67],
-          people: makeTeamBPeople(0.8, 0.9),
+          people: makeTeamBPeople(0.8, 0.9, 'quarter', 0.24),
         },
       },
     },

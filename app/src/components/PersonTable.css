@@ -1,8 +1,8 @@
+.person-table-wrap { margin-top: 1rem; }
 .person-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.8rem;
-  margin-top: 1rem;
 }
 .person-table th {
   text-align: left;
@@ -16,6 +16,14 @@
 }
 .person-table th.num { text-align: right; }
 .person-table th.bar-col { width: 30%; }
+
+.person-row {
+  cursor: pointer;
+  transition: background 120ms;
+}
+.person-row:hover { background: #1a1f25; }
+.person-row.selected { background: #1a1f25; }
+
 .person-table td {
   padding: 0.5rem 0.5rem;
   border-bottom: 1px solid #1d2128;
@@ -23,6 +31,16 @@
 .person-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
 .person-table td.name { font-weight: 500; }
 .person-table td.bar-col { padding-left: 0.5rem; padding-right: 0.5rem; }
+
+.caret {
+  display: inline-block;
+  margin-right: 0.4rem;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  transition: transform 150ms;
+}
+.caret.open { transform: rotate(90deg); color: var(--billable); }
+
 .person-bar {
   position: relative;
   width: 100%;
@@ -46,3 +64,9 @@
 }
 .flag.ok { background: #14532d; color: #bbf7d0; }
 .flag.warn { background: #7c2d12; color: #fed7aa; }
+
+.person-detail-row td {
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #1d2128;
+  background: transparent;
+}

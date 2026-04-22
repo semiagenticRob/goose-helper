@@ -1,0 +1,62 @@
+.person-detail {
+  background: #0f1318;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--billable);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  margin: 0.4rem 0;
+}
+.person-detail-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.7rem;
+}
+.person-detail-name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+.person-detail-util {
+  text-align: right;
+}
+.person-detail-util .num {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.person-detail-util .label {
+  font-size: 0.6rem;
+}
+.person-hours-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+.hour-cell {
+  background: #14181d;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem 0.6rem;
+}
+.hour-cell.warn { border-color: #92400e; background: #1a1410; }
+.hour-cell.total { background: #0b0d10; }
+.hour-label {
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.hour-value {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 0.15rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 760px) {
+  .person-hours-grid { grid-template-columns: repeat(2, 1fr); }
+}

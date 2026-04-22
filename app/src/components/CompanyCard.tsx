@@ -1,5 +1,5 @@
 import type { DashboardData, Period } from '../types';
-import { Sparkline } from './Sparkline';
+import { TrendChart } from './TrendChart';
 import './CompanyCard.css';
 
 function blendedSeries(data: DashboardData, period: Period): number[] {
@@ -46,7 +46,7 @@ export function CompanyCard({ data, period }: { data: DashboardData; period: Per
           </div>
         </div>
         <div className="company-sparkline">
-          <Sparkline data={trend} height={56} />
+          <TrendChart data={trend} period={period} height={120} compact />
         </div>
       </div>
       <div className="company-note">

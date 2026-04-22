@@ -74,7 +74,7 @@ The dashboard is built for an executive who needs to monitor utilization at a gl
   - Columns: Name · Utilization % · mini-bar · Unmapped hours flag
   - Rows sorted by utilization descending.
   - Rows with >5 unmapped hours get an orange flag pill; rows with ≤5 get a neutral/green pill.
-  - Mini-bar color: green ≥75%, amber 60–75%, red <60% (thresholds configurable via a constants file).
+  - Mini-bar color: green ≥75%, amber 60–74%, red <60% (thresholds configurable via a constants file).
 
 ## Data shape
 

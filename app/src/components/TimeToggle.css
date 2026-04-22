@@ -1,0 +1,23 @@
+.time-toggle {
+  display: inline-flex;
+  background: var(--bg-card-alt);
+  border-radius: 8px;
+  padding: 3px;
+  border: 1px solid var(--border);
+}
+.time-toggle button {
+  background: transparent;
+  color: var(--text-dim);
+  border: none;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 120ms, color 120ms;
+}
+.time-toggle button:hover { color: var(--text); }
+.time-toggle button.active {
+  background: var(--billable);
+  color: #07140a;
+}

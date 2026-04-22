@@ -1,0 +1,39 @@
+.composition-bar-wrap { width: 100%; }
+.composition-bar {
+  display: flex;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0f1318;
+  border: 1px solid var(--border);
+}
+.composition-bar .seg { height: 100%; transition: width 300ms; }
+.composition-bar .seg.billable { background: var(--billable); }
+.composition-bar .seg.unmapped {
+  background: repeating-linear-gradient(45deg, var(--unmapped), var(--unmapped) 4px, #7a8391 4px, #7a8391 8px);
+}
+.composition-bar .seg.non-billable { background: var(--non-billable); }
+.composition-bar .seg.idle { background: transparent; }
+
+.composition-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-top: 0.55rem;
+}
+.composition-legend .swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 0.35rem;
+  vertical-align: middle;
+}
+.swatch.billable { background: var(--billable); }
+.swatch.unmapped {
+  background: repeating-linear-gradient(45deg, var(--unmapped), var(--unmapped) 2px, #7a8391 2px, #7a8391 4px);
+}
+.swatch.non-billable { background: var(--non-billable); }
+.swatch.idle { background: transparent; border: 1px dashed var(--border); }

@@ -1,0 +1,96 @@
+.team-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 1.4rem;
+  cursor: pointer;
+  transition: border-color 150ms, background 150ms, transform 150ms;
+}
+.team-card:hover { border-color: #3a4350; }
+.team-card.expanded {
+  cursor: default;
+  grid-column: 1 / -1;
+  background: var(--bg-card-alt);
+  border-color: #3a4350;
+}
+.team-card:focus-visible {
+  outline: 2px solid var(--billable);
+  outline-offset: 2px;
+}
+
+.team-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.6rem;
+}
+.team-title h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.team-title .tag {
+  display: inline-block;
+  margin-top: 0.2rem;
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.conf-badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  background: #422006;
+  border: 1px solid #92400e;
+  border-radius: 99px;
+  font-size: 0.65rem;
+  color: var(--amber);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.team-hero {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  margin-bottom: 0.55rem;
+}
+.team-hero .hero-num {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.team-hero .hero-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: 0.7rem;
+}
+.team-hero .caption { color: var(--text); }
+.team-hero .delta { color: var(--text-dim); }
+.team-hero .delta.up { color: var(--billable); }
+.team-hero .delta.down { color: var(--red); }
+
+.expand-hint {
+  margin-top: 0.6rem;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+.team-sparkline {
+  margin-top: 1rem;
+  padding: 0.75rem 0.9rem;
+  background: #0f1318;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.label-tiny {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin-bottom: 0.25rem;
+}

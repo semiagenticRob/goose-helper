@@ -1,0 +1,23 @@
+.company-card {
+  background: linear-gradient(180deg, #0f1a2e 0%, var(--bg-card) 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+.company-card-head {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+.company-hero { display: flex; align-items: baseline; gap: 0.75rem; margin-top: 0.35rem; }
+.hero-num { font-size: 2.4rem; font-weight: 600; letter-spacing: -0.02em; }
+.delta { font-size: 0.8rem; font-weight: 500; }
+.delta.up { color: var(--billable); }
+.delta.down { color: var(--red); }
+.company-note {
+  margin-top: 0.8rem;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  font-style: italic;
+}

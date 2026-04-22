@@ -1,0 +1,48 @@
+.person-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+}
+.person-table th {
+  text-align: left;
+  color: var(--text-dim);
+  font-weight: 500;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.person-table th.num { text-align: right; }
+.person-table th.bar-col { width: 30%; }
+.person-table td {
+  padding: 0.5rem 0.5rem;
+  border-bottom: 1px solid #1d2128;
+}
+.person-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.person-table td.name { font-weight: 500; }
+.person-table td.bar-col { padding-left: 0.5rem; padding-right: 0.5rem; }
+.person-bar {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: #1d2128;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.person-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  transition: width 200ms;
+}
+.flag {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 99px;
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+}
+.flag.ok { background: #14532d; color: #bbf7d0; }
+.flag.warn { background: #7c2d12; color: #fed7aa; }
